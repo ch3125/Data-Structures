@@ -103,12 +103,21 @@ class SegTree{
                  segtree[node]=val;
                  arr[ind]=val;
              }else{
-                 int mid=(start+end)/2;
-                 update((2*node)+1,start,mid,ind,val);
-                 update((node*2)+2,mid+1,end,ind,val);
-                 segtree[node]=segtree[(2*node)+1]+segtree[(node*2)+2];
+                 int mid = (start + end) / 2;
+        if(start <= ind && ind <= mid)
+        {
+            // If idx is in the left child, recurse on the left child
+            update((2*node)+1, start, mid, ind, val);
+        }
+        else
+        {
+            // if idx is in the right child, recurse on the right child
+            update((2*node)+2, mid+1, end, ind, val);
+        }
+        // Internal node will have the sum of both of its children
+        segtree[node]=segtree[(2*node)+1]+segtree[(2*node)+2];
+    }
              }
-         }
         
     }
     
